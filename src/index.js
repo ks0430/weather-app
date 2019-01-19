@@ -4,10 +4,14 @@
 const express = require('express');
 // process in production
 const PORT = process.env.PORT || 3000; 
+// Configs
+require('dotenv').config();
+
 const routes = require('./routes');
 
 // Create app instance 
 const app = express();
+
 
 // Import routes
 app.use(routes);
