@@ -1,18 +1,20 @@
+
 const express = require('express');
-const axios = require('axios');
+const axios = require('../utils/axios');
+const weather = require('../models/Weather');
+const responseFormatter = require('../utils/responseFormatter');
+const countryValidator = require('../middlewares/countryValidator');
+
 const router = express.Router();
+const APPID = process.env.APPID;
 
-const apiEndPoint = 'http://api.openweathermap.org/data/2.5/';
-const apiKeys = process.env.APPID;
-
-// Related Path
-router.get('/:cc/:city',(request,response)=>{
-    const {cc,city} = request.params;
-    axios.get(`${apiEndPoint}weather?q=${city},${cc}&APPID=${apiKeys}`)
-        .then(res => {
-            response.send(res.data);
-        })
-        .catch(err => console.log(err));
+router.get('/:cc/:city', countryValidator, (req, res, next) => {
+  const { cc, city } = req.params;
+  const weatherType = req.query.weatherType;
+  weather
+    .getData(city, cc, weatherType)
+    .then(response => responseFormatter(res, 200, null, response))
+    .catch(err => next(err));
 });
 
 module.exports = router;
