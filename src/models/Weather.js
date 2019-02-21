@@ -20,8 +20,12 @@ class Weather {
       return weather;
     });
   }
+
+  getDataByCityCode(city, weatherType) {
+    
+  }
+
 }
-module.exports = new Weather();
 
 function filterData(data, weatherType) {
   if (weatherType === 'current') {
@@ -39,3 +43,6 @@ function getWeatherData(city, country) {
     return axios.get(i, { params: { q: queryString } });
   });
 }
+
+module.exports = new Weather();
+

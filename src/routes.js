@@ -2,10 +2,11 @@
 const express = require('express');
 const router = express.Router();
 const weatherRoutes = require('./routes/weather');
+const cityRoutes = require('./routes/city');
 const responseFormatter = require('./utils/responseFormatter');
 
 // Routes
-router.get('/',(request,respond)=> {
+router.get('/', (request, respond)=> {
     responseFormatter(
         respond,
         200,
@@ -13,6 +14,8 @@ router.get('/',(request,respond)=> {
         null
       )
 });
+
+router.use('/api/city', cityRoutes);
 
 router.use('/api/weather',weatherRoutes);
 
