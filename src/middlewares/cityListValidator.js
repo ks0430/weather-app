@@ -3,7 +3,7 @@ const responseFormatter = require('../utils/responseFormatter');
 
 module.exports = (req, res, next) => {
   const { city } = req.params;
-  const result = cityList.filter(item => item.name.toLowerCase() === city.toLowerCase());
+  const result = cityList.filter(item => item.name.toLowerCase().includes(city.toLowerCase()));
   // console.log(result);
 
   // If city name can not be found
